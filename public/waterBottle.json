@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Water Bottle",
+    "capacity": "1 Liter",
+    "price": 50,
+    "expiryDate": "2026-12-31"
+  },
+  {
+    "id": 2,
+    "name": "Water Bottle",
+    "capacity": "500 ml",
+    "price": 30,
+    "expiryDate": "2026-08-15"
+  },
+  {
+    "id": 3,
+    "name": "Water Bottle",
+    "capacity": "2 Liter",
+    "price": 80,
+    "expiryDate": "2027-01-10"
+  },
+  {
+    "id": 4,
+    "name": "Water Bottle",
+    "capacity": "750 ml",
+    "price": 40,
+    "expiryDate": "2026-10-05"
+  },
+  {
+    "id": 5,
+    "name": "Water Bottle",
+    "capacity": "1.5 Liter",
+    "price": 65,
+    "expiryDate": "2027-03-20"
+  }
+]
