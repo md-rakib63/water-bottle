@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Bottle = ({ bottle, handleAddToCart }) => {
-  const [buy, setBuy] = useState(false);
-
-  const handleBuyNow = () => {
-    setBuy(true);
-    handleAddToCart(bottle);
-  };
+const Bottle = ({ bottle, handleAddToCart, cart }) => {
+  // Check if this bottle is already in cart
+  const isInCart = cart.find(item => item.id === bottle.id);
 
   return (
     <div className="border-2 border-red-500 rounded p-3">
@@ -16,10 +12,13 @@ const Bottle = ({ bottle, handleAddToCart }) => {
       <p>Seller: {bottle.seller}</p>
       <p>Stock: {bottle.stock}</p>
       <button
-        onClick={handleBuyNow}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-2"
+        onClick={() => handleAddToCart(bottle)}
+        disabled={isInCart} // disable if already in cart
+        className={`${
+          isInCart ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-700'
+        } text-white font-bold py-2 px-4 rounded-full mt-2`}
       >
-        {buy ? 'Purchased' : 'Buy Now'}
+        {isInCart ? 'Purchased' : 'Buy Now'}
       </button>
     </div>
   );

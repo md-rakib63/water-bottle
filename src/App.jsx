@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       
-      <h1 className="text-5x1 font-vold text-center text-red-500">Vite + React</h1>
+      <h1 className="text-6xl font-vold text-center text-red-500">lage achi.com</h1>
     <Bottles></Bottles>
     {/* <Bottles/> */}
       </>
@@ -16,3 +16,5 @@ function App() {
 }
 
 export default App
+
+

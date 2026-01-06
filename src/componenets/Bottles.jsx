@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import Bottle from './Bottle';
+import { getStoredCart, saveCartToStorage } from './utlis/CartStorage';
 
 const Bottles = () => {
   const [bottles, setBottles] = useState([]);
   const [cart, setCart] = useState([]);
 
+  useEffect(()=>{
+    const storedCart = getStoredCart();
+    setCart (storedCart);
+  },[])
+
   useEffect(() => {
-    fetch('/bottles.json')
+    fetch('../../public/bottles.json')
       .then(res => res.json())
       .then(data => setBottles(data))
       .catch(err => console.error(err));
   }, []);
 
+  // Add bottle to cart
   const handleAddToCart = (bottle) => {
-    setCart([...cart, bottle]);
+    if (!cart.find(item => item.id === bottle.id)) {
+      setCart([...cart, bottle]);
+      saveCartToStorage([...cart, bottle])
+    }
   };
 
-  
+  // Remove bottle from cart
+  const handleRemoveFromCart = (id) => {
+    const remainingCart = cart.filter(item => item.id !== id)
+    setCart(remainingCart);
+    saveCartToStorage(remainingCart)
+  };
+
+  // Calculate total price
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
@@ -27,6 +44,7 @@ const Bottles = () => {
           <Bottle
             key={bottle.id}
             bottle={bottle}
+            cart={cart}
             handleAddToCart={handleAddToCart}
           />
         ))}
@@ -41,12 +59,21 @@ const Bottles = () => {
         {cart.length > 0 && (
           <>
             {cart.map(item => (
-              <p key={item.id}>
-                {item.name} - ${item.price}
-              </p>
+              <div
+                key={item.id}
+                className="flex justify-between items-center mb-1"
+              >
+                <span>{item.name} - ${item.price}</span>
+                <button
+                  onClick={() => handleRemoveFromCart(item.id)}
+                  className="text-red-500 font-bold ml-2"
+                >
+                  x
+                </button>
+              </div>
             ))}
             <hr className="my-2"/>
-            <p className="font-bold">Total: ${totalPrice}</p>
+            <p className="font-bold text-lg">Total: ${totalPrice}</p>
           </>
         )}
       </div>
